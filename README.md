@@ -20,9 +20,9 @@ Source: https://conwaylife.com/
 Compile using `gcc` compiler.  
 Before running the simulation, create an output directory called `images` in the same folder as the executable. The simulation will create one frame per iteration in the `images` directory.
 ```bash
-gcc main.c -o life -O3 -Wall  # compile
-mkdir images                  # create output directory
-./life                        # run the simulation
+gcc src/main.c -o life -O3 -Wall  # compile
+mkdir images                      # create output directory
+./life                            # run the simulation
 ```
 
 ### Optional
