@@ -44,8 +44,8 @@ int main(void)
     // initialize grid by randomly set cells to alive or dead
     unsigned int r = 0;
     unsigned int c = 0;
-    for (r = 1; r < rows - 1; ++r)
-    for (c = 1; c < cols - 1; ++c)
+    for (r = 0; r < rows; ++r)
+    for (c = 0; c < cols; ++c)
         grid[r][c] = (((float)rand() / RAND_MAX) < density) ? 255 : 0;
 
     // ==============
@@ -69,9 +69,9 @@ int main(void)
         int offset_r = 0;
         int offset_c = 0;
 
-        // update cells (skip borders)
-        for (r = 1; r < rows - 1; ++r)
-        for (c = 1; c < cols - 1; ++c)
+        // update cells (infinite border)
+        for (r = 0; r < rows; ++r)
+        for (c = 0; c < cols; ++c)
         {
             // count alive neighbors in a 3x3 grid (8 neighbors; skip center)
             neighbors = 0;
@@ -79,7 +79,9 @@ int main(void)
             for (offset_c = -1; offset_c <= 1; ++offset_c)
             {
                 if (offset_r == 0 && offset_c == 0) continue;
-                neighbors += grid[r + offset_r][c + offset_c] ? 1 : 0;
+                unsigned int rr = ((int)rows + (int)r + offset_r) % (int)rows;
+                unsigned int cc = ((int)cols + (int)c + offset_c) % (int)cols;
+                neighbors += grid[rr][cc] ? 1 : 0;
             }
 
             // apply game of life rules
